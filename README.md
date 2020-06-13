@@ -27,7 +27,7 @@ Json для тестов десериализации расположен в ф
 |            Use_Jil_FromString |  77.78 ms | 1.008 ms | 0.943 ms | 5000.0000 | 2000.0000 | 1000.0000 |  34.08 MB |
 |       Use_Utf8Json_FromString |  92.30 ms | 1.840 ms | 2.191 ms | 5000.0000 | 2166.6667 |  833.3333 |  39.31 MB |
 
-Машина и подробости запуска:
+Машина и подробности запуска:
 ``` ini
 
 BenchmarkDotNet=v0.12.1, OS=Windows 10.0.18362.900 (1903/May2019Update/19H1)
@@ -48,7 +48,7 @@ Intel Core i5-3570 CPU 3.40GHz (Ivy Bridge), 1 CPU, 4 logical and 4 physical cor
 |            Use_Jil_FromString |  7.908 s | 0.0109 s | 0.0102 s | 396000.0000 | 140000.0000 | 1000.0000 |   3.32 GB |
 |       Use_Utf8Json_FromString |  9.087 s | 0.0139 s | 0.0123 s | 374000.0000 | 131000.0000 | 1000.0000 |   3.83 GB |
 
-Машина и подробости запуска:
+Машина и подробности запуска:
 ``` ini
 
 BenchmarkDotNet=v0.12.1, OS=Windows 10.0.18362.900 (1903/May2019Update/19H1)
