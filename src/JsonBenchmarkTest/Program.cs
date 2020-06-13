@@ -19,7 +19,8 @@ namespace JsonBenchmarkTest
         static void GenerateFile(int count)
         {
             count = count <= 0 ? 1 : count;
-            using var writer = new StreamWriter($"C:\\Users\\Fawel\\Desktop\\Progs\\JsonBencmarkTests\\src\\TestObjects{count}.json");
+            using var writer = 
+                new StreamWriter($"C:\\Users\\Fawel\\Desktop\\Progs\\JsonBencmarkTests\\src\\TestObjects{count}.json");
             Jil.JSON.Serialize(Human.Factory.GenerateNewRandom(count), writer);
         }
     }

@@ -12,7 +12,7 @@ namespace JsonBenchmarkTest.Models
 
         private Item(string type, string name, string manufactor)
         {
-            SetName(type).SetName(name).SetManufactor(manufactor);
+            SetType(type).SetName(name).SetManufactor(manufactor);
         }
 
         public string Type { get; set; }
@@ -57,6 +57,22 @@ namespace JsonBenchmarkTest.Models
 
             private static readonly Random _random = new Random();
 
+            /// <summary>
+            /// Создаём новую вещь по переданным параметрам
+            /// </summary>
+            /// <param name="name">Наименование товара</param>
+            /// <param name="type">Тип предмета</param>
+            /// <param name="manufactor">Название производителя предмета</param>
+            /// <returns>Новый предмет с переданными значениями</returns>
+            public static Item CreateNew(string name, string type, string manufactor)
+            {
+                return new Item(type, name, manufactor);
+            }
+
+            /// <summary>
+            /// Генерируем случайную вещь из набора заранее заданных значений
+            /// </summary>
+            /// <returns>Сгенерированная новая вещь</returns>
             public static Item GenerateRandomItem()
             {
                 // рандомизируем тип вещи
@@ -79,6 +95,11 @@ namespace JsonBenchmarkTest.Models
                 return newItem;
             }
 
+            /// <summary>
+            /// Генерируем массив из случайных вещей
+            /// </summary>
+            /// <param name="count">Кол-во вещей, которое нужно сгенерировать, обязательно должно быть больше 0</param>
+            /// <returns>Массив сгенерированных вещей</returns>
             public static Item[] GenerateRandomItem(int count)
             {
                 if (count < 0)

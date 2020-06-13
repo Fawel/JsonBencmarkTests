@@ -79,6 +79,11 @@ namespace JsonBenchmarkTest.Models
                 "Томас", "Рей", "Дженерик", "Лариса", "Нарита"};
             private static readonly Random _random = new Random();
 
+            public static Human CreateNew(string name, int age, bool isSplendid, Item[] possessions)
+            {
+                return new Human(name, age, isSplendid, possessions);
+            }
+
             public static Human GenerateNewRandom()
             {
                 // рандомизируем имя

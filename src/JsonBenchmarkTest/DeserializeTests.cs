@@ -13,7 +13,7 @@ namespace JsonBenchmarkTest
     public class DeserializeTests
     {
         private readonly string _pathToJsonFile =
-            "C:\\Users\\Fawel\\Desktop\\Progs\\JsonBencmarkTests\\src\\TestObjects1k.json";
+            "C:\\Users\\Fawel\\Desktop\\Progs\\JsonBencmarkTests\\src\\TestObjects100000.json";
 
         [Benchmark]
         public Human[] Use_NewtonsoftJson()
@@ -37,6 +37,14 @@ namespace JsonBenchmarkTest
         {
             using var jsonStream = new StreamReader(_pathToJsonFile);
             return Utf8Json.JsonSerializer.Deserialize<Human[]>(jsonStream.BaseStream);
+        }
+
+        [Benchmark]
+        public Human[] Use_CustomDeserializer()
+        {
+            using var jsonStream = new StreamReader(_pathToJsonFile);
+            using var jsonTextReader = new JsonTextReader(jsonStream);
+            return CustomHumanSerializer.DeserializeToHumanArray(jsonTextReader);
         }
 
         [Benchmark]
