@@ -1,5 +1,7 @@
 ﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Diagnostics.Windows.Configs;
 using JsonBenchmarkTest.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,37 +9,34 @@ using System.Text;
 
 namespace JsonBenchmarkTest
 {
+    [MemoryDiagnoser]
     public class DeserializeTests
     {
-        private readonly string _pathToJsonFile = "";
-        private string _jsonString;
-        public DeserializeTests(string pathToJsonFile) 
-        {
-        }
+        private readonly string _pathToJsonFile =
+            "C:\\Users\\Fawel\\Desktop\\Progs\\JsonBencmarkTests\\src\\TestObjects10k.json";
 
-        [GlobalSetup]
-        public void Setup()
+        [Benchmark]
+        public Human[] Use_NewtonsoftJson()
         {
-            using var stream = new StreamReader(_pathToJsonFile);
-            _jsonString = stream.ReadToEnd();
+            using var jsonStream = new StreamReader(_pathToJsonFile);
+
+            JsonSerializer serializer = new JsonSerializer();
+            using var jsonTextReader = new JsonTextReader(jsonStream);
+            return serializer.Deserialize<Human[]>(jsonTextReader);
         }
 
         [Benchmark]
-        public void Use_NewtonsoftJson()
+        public Human[] Use_Jil()
         {
-            var humans = Newtonsoft.Json.JsonConvert.DeserializeObject<Human[]>(_jsonString);
+            using var jsonStream = new StreamReader(_pathToJsonFile);
+            return Jil.JSON.Deserialize<Human[]>(jsonStream);
         }
 
         [Benchmark]
-        public void Use_Jil()
+        public Human[] Use_Utf8Json()
         {
-            var humans = Jil.JSON.Deserialize<Human[]>(_jsonString);
-        }
-
-        [Benchmark]
-        public void Use_Utf8Json()
-        {
-            var humans = Utf8Json.JsonSerializer.Deserialize<Human[]>(_jsonString);
+            using var jsonStream = new StreamReader(_pathToJsonFile);
+            return Utf8Json.JsonSerializer.Deserialize<Human[]>(jsonStream.BaseStream);
         }
     }
 }
