@@ -38,3 +38,22 @@ Intel Core i5-3570 CPU 3.40GHz (Ivy Bridge), 1 CPU, 4 logical and 4 physical cor
 
 
 ```
+Результат для 100к объектов
+|                        Method |     Mean |    Error |   StdDev |       Gen 0 |       Gen 1 |     Gen 2 | Allocated |
+|------------------------------ |---------:|---------:|---------:|------------:|------------:|----------:|----------:|
+|            Use_NewtonsoftJson | 14.136 s | 0.0526 s | 0.0466 s | 224000.0000 |  79000.0000 | 1000.0000 |   1.31 GB |
+|                       Use_Jil |  7.869 s | 0.0253 s | 0.0237 s | 223000.0000 |  79000.0000 | 1000.0000 |    1.3 GB |
+|                  Use_Utf8Json |  7.705 s | 0.0195 s | 0.0173 s | 203000.0000 |  74000.0000 | 3000.0000 |   3.17 GB |
+| Use_NewtonsoftJson_FromString | 14.804 s | 0.0243 s | 0.0227 s | 397000.0000 | 140000.0000 | 1000.0000 |   3.33 GB |
+|            Use_Jil_FromString |  7.908 s | 0.0109 s | 0.0102 s | 396000.0000 | 140000.0000 | 1000.0000 |   3.32 GB |
+|       Use_Utf8Json_FromString |  9.087 s | 0.0139 s | 0.0123 s | 374000.0000 | 131000.0000 | 1000.0000 |   3.83 GB |
+
+Машина и подробости запуска:
+``` ini
+
+BenchmarkDotNet=v0.12.1, OS=Windows 10.0.18362.900 (1903/May2019Update/19H1)
+Intel Core i5-3570 CPU 3.40GHz (Ivy Bridge), 1 CPU, 4 logical and 4 physical cores
+.NET Core SDK=3.1.300
+  [Host]     : .NET Core 3.1.4 (CoreCLR 4.700.20.20201, CoreFX 4.700.20.22101), X64 RyuJIT
+  DefaultJob : .NET Core 3.1.4 (CoreCLR 4.700.20.20201, CoreFX 4.700.20.22101), X64 RyuJIT
+```
