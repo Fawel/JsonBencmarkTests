@@ -20,7 +20,7 @@ namespace JsonBenchmarkTest
         {
             using var jsonStream = new StreamReader(_pathToJsonFile);
 
-            JsonSerializer serializer = new JsonSerializer();
+            var serializer = new JsonSerializer();
             using var jsonTextReader = new JsonTextReader(jsonStream);
             return serializer.Deserialize<Human[]>(jsonTextReader);
         }

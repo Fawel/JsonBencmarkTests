@@ -13,6 +13,9 @@ namespace JsonBenchmarkTest
             BenchmarkRunner.Run<DeserializeTests>();
         }
 
+        /// <summary>
+        /// Использовать для генерации тестового json файла
+        /// </summary>
         static void GenerateFile(int count)
         {
             count = count <= 0 ? 1 : count;

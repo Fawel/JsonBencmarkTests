@@ -48,14 +48,14 @@ namespace JsonBenchmarkTest.Models
 
         public static class Factory
         {
-            private static string[] _typePool = new[] {"Стол", "Стул", "Лампа", "Стойка", 
+            private static readonly string[] _typePool = new[] {"Стол", "Стул", "Лампа", "Стойка", 
                 "Напиток", "Монитор", "Пылесос", "Телевизор"};
-            private static string[] _namePool = new[] { "Бесславный разоритель", "Удручающая безделушка", 
+            private static readonly string[] _namePool = new[] { "Бесславный разоритель", "Удручающая безделушка", 
                 "Дорогая штуковина", "Бесполезный хлам", "Разваливающееся нечто", "Весёлая приблуда" };
-            private static string[] _manufactorPool = new[] {"Polgaref", "Muap Co.", "Qwerty inc", 
+            private static readonly string[] _manufactorPool = new[] {"Polgaref", "Muap Co.", "Qwerty inc", 
                 "Supreme't", "Tolyato Factory", "Roga and Koputo"};
 
-            private static Random _random = new Random();
+            private static readonly Random _random = new Random();
 
             public static Item GenerateRandomItem()
             {

@@ -75,9 +75,9 @@ namespace JsonBenchmarkTest.Models
         /// </summary>
         public static class Factory
         {
-            private static string[] _namePool = new[]{"Владимир", "Сакуя", "Ангелина",
+            private static readonly string[] _namePool = new[]{"Владимир", "Сакуя", "Ангелина",
                 "Томас", "Рей", "Дженерик", "Лариса", "Нарита"};
-            private static Random _random = new Random();
+            private static readonly Random _random = new Random();
 
             public static Human GenerateNewRandom()
             {
