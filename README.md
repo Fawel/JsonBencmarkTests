@@ -85,3 +85,28 @@ Intel Core i5-3570 CPU 3.40GHz (Ivy Bridge), 1 CPU, 4 logical and 4 physical cor
 |                        Use_Jil_ToStream | 36.98 ms | 0.616 ms | 0.576 ms | 1928.5714 | 1928.5714 | 1928.5714 |  21.09 MB |
 |                   Use_Utf8Json_ToStream | 25.22 ms | 0.192 ms | 0.179 ms | 1000.0000 | 1000.0000 | 1000.0000 |  22.86 MB |
 |                Use_Utf8Json_ToByteArray | 21.26 ms | 0.406 ms | 0.483 ms |  875.0000 |  875.0000 |  875.0000 |  23.32 MB |
+
+Тесты на 100000 объектов
+
+Параметры тестовой машины
+``` ini
+
+BenchmarkDotNet=v0.12.1, OS=Windows 10.0.18362.900 (1903/May2019Update/19H1)
+Intel Core i5-3570 CPU 3.40GHz (Ivy Bridge), 1 CPU, 4 logical and 4 physical cores
+.NET Core SDK=3.1.300
+  [Host]     : .NET Core 3.1.4 (CoreCLR 4.700.20.20201, CoreFX 4.700.20.22101), X64 RyuJIT
+  DefaultJob : .NET Core 3.1.4 (CoreCLR 4.700.20.20201, CoreFX 4.700.20.22101), X64 RyuJIT
+
+
+```
+Результаты тестов:
+
+|                                  Method |    Mean |    Error |   StdDev |       Gen 0 |      Gen 1 |     Gen 2 | Allocated |
+|---------------------------------------- |--------:|---------:|---------:|------------:|-----------:|----------:|----------:|
+| Use_NewtonsoftJson_JsonConvert_ToString | 7.920 s | 0.0877 s | 0.0821 s | 186000.0000 | 63000.0000 | 2000.0000 |   2.14 GB |
+|                        Use_Jil_ToString | 4.745 s | 0.0061 s | 0.0051 s | 185000.0000 | 63000.0000 | 2000.0000 |   2.13 GB |
+|                   Use_Utf8Json_ToString | 3.738 s | 0.0037 s | 0.0033 s |           - |          - |         - |   3.06 GB |
+|             Use_NewtonsoftJson_ToStream | 8.033 s | 0.0137 s | 0.0121 s |   5000.0000 |  3000.0000 | 3000.0000 |   2.66 GB |
+|                        Use_Jil_ToStream | 4.105 s | 0.0138 s | 0.0129 s |   3000.0000 |  3000.0000 | 3000.0000 |   2.62 GB |
+|                   Use_Utf8Json_ToStream | 3.075 s | 0.0043 s | 0.0038 s |   3000.0000 |  3000.0000 | 3000.0000 |   2.71 GB |
+|                Use_Utf8Json_ToByteArray | 2.478 s | 0.0055 s | 0.0043 s |           - |          - |         - |    2.7 GB |
