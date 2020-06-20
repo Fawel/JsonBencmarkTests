@@ -58,3 +58,30 @@ Intel Core i5-3570 CPU 3.40GHz (Ivy Bridge), 1 CPU, 4 logical and 4 physical cor
   [Host]     : .NET Core 3.1.4 (CoreCLR 4.700.20.20201, CoreFX 4.700.20.22101), X64 RyuJIT
   DefaultJob : .NET Core 3.1.4 (CoreCLR 4.700.20.20201, CoreFX 4.700.20.22101), X64 RyuJIT
 ```
+
+* Тесты сериализации
+
+Для теста использован массив объектов размером в 1000 элементов. Для utf8Json помимо стандартных методов также была проверена конвертация в массив байт.
+
+Параметры тестовой машины:
+``` ini
+
+BenchmarkDotNet=v0.12.1, OS=Windows 10.0.18362.900 (1903/May2019Update/19H1)
+Intel Core i5-3570 CPU 3.40GHz (Ivy Bridge), 1 CPU, 4 logical and 4 physical cores
+.NET Core SDK=3.1.300
+  [Host]     : .NET Core 3.1.4 (CoreCLR 4.700.20.20201, CoreFX 4.700.20.22101), X64 RyuJIT
+  DefaultJob : .NET Core 3.1.4 (CoreCLR 4.700.20.20201, CoreFX 4.700.20.22101), X64 RyuJIT
+
+
+```
+Рез-ты тестов:
+
+|                                  Method |     Mean |    Error |   StdDev |     Gen 0 |     Gen 1 |     Gen 2 | Allocated |
+|---------------------------------------- |---------:|---------:|---------:|----------:|----------:|----------:|----------:|
+| Use_NewtonsoftJson_JsonConvert_ToString | 74.68 ms | 0.795 ms | 0.744 ms | 2142.8571 | 1000.0000 |  428.5714 |  21.75 MB |
+|                        Use_Jil_ToString | 41.37 ms | 0.139 ms | 0.109 ms | 2416.6667 | 1416.6667 |  666.6667 |  21.74 MB |
+|                   Use_Utf8Json_ToString | 32.63 ms | 0.616 ms | 0.576 ms |  656.2500 |  656.2500 |  656.2500 |  26.61 MB |
+|             Use_NewtonsoftJson_ToStream | 81.85 ms | 0.143 ms | 0.127 ms | 1857.1429 | 1857.1429 | 1857.1429 |  21.25 MB |
+|                        Use_Jil_ToStream | 36.98 ms | 0.616 ms | 0.576 ms | 1928.5714 | 1928.5714 | 1928.5714 |  21.09 MB |
+|                   Use_Utf8Json_ToStream | 25.22 ms | 0.192 ms | 0.179 ms | 1000.0000 | 1000.0000 | 1000.0000 |  22.86 MB |
+|                Use_Utf8Json_ToByteArray | 21.26 ms | 0.406 ms | 0.483 ms |  875.0000 |  875.0000 |  875.0000 |  23.32 MB |
