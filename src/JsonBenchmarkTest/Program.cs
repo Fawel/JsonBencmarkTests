@@ -10,7 +10,8 @@ namespace JsonBenchmarkTest
     {
         static void Main(string[] args)
         {
-            BenchmarkRunner.Run<DeserializeTests>();
+            BenchmarkRunner.Run<SerializeTests>();
+            //BenchmarkRunner.Run<DeserializeTests>();
         }
 
         /// <summary>
