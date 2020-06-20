@@ -1,11 +1,13 @@
 ﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Diagnostics.Windows.Configs;
+using Jil;
 using JsonBenchmarkTest.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using Utf8Json;
 
 namespace JsonBenchmarkTest
 {
@@ -13,14 +15,14 @@ namespace JsonBenchmarkTest
     public class DeserializeTests
     {
         private readonly string _pathToJsonFile =
-            "C:\\Users\\Fawel\\Desktop\\Progs\\JsonBencmarkTests\\src\\TestObjects100000.json";
+            "C:\\Users\\Fawel\\Desktop\\Progs\\JsonBencmarkTests\\src\\TestObjects1k.json";
 
         [Benchmark]
         public Human[] Use_NewtonsoftJson()
         {
             using var jsonStream = new StreamReader(_pathToJsonFile);
 
-            var serializer = new JsonSerializer();
+            var serializer = new Newtonsoft.Json.JsonSerializer();
             using var jsonTextReader = new JsonTextReader(jsonStream);
             return serializer.Deserialize<Human[]>(jsonTextReader);
         }
@@ -69,6 +71,15 @@ namespace JsonBenchmarkTest
             using var jsonStream = new StreamReader(_pathToJsonFile);
             var jsonString = jsonStream.ReadToEnd();
             return Utf8Json.JsonSerializer.Deserialize<Human[]>(jsonString);
+        }
+
+        [Benchmark]
+        public Human[] Use_Utf8Json_FromBytes()
+        {
+            using var jsonStream = new StreamReader(_pathToJsonFile);
+            Span<byte> buffer = new byte[(int)jsonStream.BaseStream.Length];
+            jsonStream.BaseStream.Read(buffer);
+            return Utf8Json.JsonSerializer.Deserialize<Human[]>(buffer.ToArray());
         }
 
     }
